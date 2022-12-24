@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Profile</title>
+</head>
+<body>
+    <a href="{% url 'login-view' %}">Logout Admin</a>
+    <h1>All Registered User List</h1>
+    <h2>User Name : </h2>
+    {% for users in users %}
+        <hr>
+        <h3>User Id : {{users.id}}</h3>
+        <h3>User Delail : </h3>
+        <ul>
+            <li>User Name : {{users.username}}</li>
+            <li>User Email Address : {{users.email|default:'NA'}}</li>
+            <li>User First Name : {{users.first_name|default:"NA"}}</li>
+            <li>User Last Name : {{users.last_name|default:"NA"}}</li> <br>
+            <a href="{% url 'edit-profile-view' users.id %}">Edit User Information</a>
+            <a href="{% url 'profile-edit-view' users.id %}">Delete</a>
+        </ul>
+        {% endfor %}
+        <span>
+            {% if users.has_previous %}
+            <a href="?page={{users.previous_page_number}}">Previous</a>
+            {% endif %}
+            <span>{{users.number}}</span>
+            {% if users.has_next %}
+            <a  href="?page={{users.next_page_number}}">Next</a>
+            {% endif %}
+        </span>
+        <hr>    
+        <hr>
+</body>
+</html>
